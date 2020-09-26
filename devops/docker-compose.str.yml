@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+#  redis:
+#    container_name: redis
+#    image: redis:4
+#    command: redis-server --requirepass admin
+#    volumes:
+#      - ../../volumes/radis/data:/data
+#    ports:
+#      - 6379:6379
+#    networks:
+#      - notification-network
+
+  postgres:
+    container_name: postgresBatch
+    image: postgres:10
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: batchBD
+    ports:
+      - 5432:5432
+    volumes:
+      - ../../volumes/postgres/database:/var/lib/postgresql/data
+    networks:
+      - batch-network
+
+#  rabbitmq:
+#    container_name: rabbitmq
+#    image: rabbitmq:3-management
+#    environment:
+#      RABBITMQ_DEFAULT_USER: admin
+#      RABBITMQ_DEFAULT_PASS: admin
+#      RABBITMQ_DEFAULT_VHOST: /
+#    ports:
+#      - 5672:5672
+#      - 15671:15671
+#      - 15672:15672
+#    volumes:
+#      - ../../volumes/rabbitmq/database:/var/lib/rabbitmq
+#    networks:
+#      - spark-network
+
+networks:
+  batch-network:
+    driver: bridge
